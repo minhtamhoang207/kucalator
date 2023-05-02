@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1054583992092",
+    "project_id": "app-caculator",
+    "storage_bucket": "app-caculator.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1054583992092:android:f58fe53a7320552fbf14d9",
+        "android_client_info": {
+          "package_name": "com.caculator.mobile"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1054583992092-heksj6nrir2ot18grbn10c5eq6h7qe6e.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA7Lwc6VWDLGw4qEMQpJjIkRU9yjb20tCw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1054583992092-heksj6nrir2ot18grbn10c5eq6h7qe6e.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
