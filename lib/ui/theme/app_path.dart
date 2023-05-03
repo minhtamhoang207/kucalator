@@ -31,12 +31,7 @@ class AppPath {
   static const String map = "assets/images/map.png";
   static const String orderError = "assets/images/order_error.png";
   static const String discount = "assets/images/discount.svg";
-  static const String mubahaError =
-      "assets/images/mubaha_logo/mubaha_error.png";
-  static const String mubahaNoOrder =
-      "assets/images/mubaha_logo/mubaha_no_order.png";
-  static const String mubahaMaintenance =
-      "assets/images/mubaha_logo/mubaha_maintenance.png";
+
   static const String orderSuccess = "assets/images/order_success.png";
   static const String background1 = 'assets/images/background_1.png';
   static const String background2 = 'assets/images/background_2.png';

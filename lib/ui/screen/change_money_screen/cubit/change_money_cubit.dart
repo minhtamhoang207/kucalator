@@ -26,7 +26,7 @@ class ChangeMoneyCubit extends Cubit<ChangeMoneyState> {
       final response = await Dio().get(
           'https://marketdata.tradermade.com/api/v1/live?currency=${from}${to}&api_key=Gj2jrkZZ4QpsZcEj-HSy');
       List<dynamic> quotes = response.data["quotes"] as List<dynamic>;
-      double bid = (quotes[0] as Map<String, dynamic>)["bid"] as double;
+      num bid = (quotes[0] as Map<String, dynamic>)["bid"] as num;
 
       return (bid * value).toString();
     } catch (e) {

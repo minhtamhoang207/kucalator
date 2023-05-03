@@ -141,13 +141,6 @@ flutter:
     - assets/images/icons/
     - assets/images/splash/
     - assets/translations/
-    - assets/data/categories.json
-    - assets/data/products.json
-    - assets/data/users.json
-    - assets/data/homepage.json
-    - assets/data/categories.json
-    - assets/data/favorite.json
-    - assets/data/cartpage.json
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

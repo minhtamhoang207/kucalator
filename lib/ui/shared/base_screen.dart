@@ -2,8 +2,6 @@
 // import 'package:flutter_screenutil/flutter_screenutil.dart';
 // import 'package:auto_route/auto_route.dart';
 // import 'package:flutter_vector_icons/flutter_vector_icons.dart';
-// import 'package:mubaha/core/constant/constant.dart';
-// import 'package:mubaha/core/theme/theme.dart';
 
 // class BaseScreen extends StatelessWidget {
 //   const BaseScreen(
