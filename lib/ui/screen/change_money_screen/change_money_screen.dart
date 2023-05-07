@@ -59,8 +59,17 @@ class _ChangeMoneyScreenState extends State<ChangeMoneyScreen> {
     });
   }
 
-  void deleteText() {
+  void deleteText({bool? isAll}) {
     setState(() {
+      if (isAll ?? false) {
+        if (isFirst) {
+          String text = "0";
+          moneyFirstController.text = text;
+        } else {
+          String text = "0";
+          moneySecondController.text = text;
+        }
+      }
       if (isFirst) {
         String text = moneyFirstController.text.length > 1
             ? moneyFirstController.text
@@ -346,13 +355,18 @@ class _ChangeMoneyScreenState extends State<ChangeMoneyScreen> {
                               width: 8.w,
                             ),
                             button(
-                              context: context,
-                              col: Color(0xffFF6B6B),
-                              icon: SvgPicture.asset(
-                                "assets/images/icons/cacu_congtru.svg",
-                                width: 26.w,
-                              ),
-                            )
+                                onTap: () async {
+                                  deleteText(isAll: true);
+                                },
+                                context: context,
+                                col: Color(0xffFF6B6B),
+                                icon: Text(
+                                  "C",
+                                  style: TextStyle(
+                                      fontSize: 28.sp,
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.w400),
+                                ))
                           ],
                         ),
                         SizedBox(
@@ -396,6 +410,19 @@ class _ChangeMoneyScreenState extends State<ChangeMoneyScreen> {
                               width: 8.w,
                             ),
                             button(
+                                context: context,
+                                col: Color(0xffFF6B6B),
+                                icon: Text(
+                                  "=",
+                                  style: TextStyle(
+                                      fontSize: 38.sp,
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.w400),
+                                ),
+                                // SvgPicture.asset(
+                                //   "assets/images/icons/cacu_congtru.svg",
+                                //   width: 26.w,
+                                // ),
                                 onTap: () async {
                                   String textnew = await context
                                       .read<ChangeMoneyCubit>()
@@ -405,16 +432,7 @@ class _ChangeMoneyScreenState extends State<ChangeMoneyScreen> {
                                           value: double.parse(
                                               moneyFirstController.text));
                                   moneySecondController.text = textnew;
-                                },
-                                context: context,
-                                col: Color(0xffFF6B6B),
-                                icon: Text(
-                                  "C",
-                                  style: TextStyle(
-                                      fontSize: 28.sp,
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.w400),
-                                ))
+                                })
                           ],
                         ),
                       ],
