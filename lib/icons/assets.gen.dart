@@ -9,32 +9,6 @@
 
 import 'package:flutter/widgets.dart';
 
-class $AssetsDataGen {
-  const $AssetsDataGen();
-
-  /// File path: assets/data/cartpage.json
-  String get cartpage => 'assets/data/cartpage.json';
-
-  /// File path: assets/data/categories.json
-  String get categories => 'assets/data/categories.json';
-
-  /// File path: assets/data/favorite.json
-  String get favorite => 'assets/data/favorite.json';
-
-  /// File path: assets/data/homepage.json
-  String get homepage => 'assets/data/homepage.json';
-
-  /// File path: assets/data/products.json
-  String get products => 'assets/data/products.json';
-
-  /// File path: assets/data/users.json
-  String get users => 'assets/data/users.json';
-
-  /// List of all assets
-  List<String> get values =>
-      [cartpage, categories, favorite, homepage, products, users];
-}
-
 class $AssetsImagesGen {
   const $AssetsImagesGen();
 
@@ -252,7 +226,6 @@ class $AssetsImagesSplashGen {
 class Assets {
   Assets._();
 
-  static const $AssetsDataGen data = $AssetsDataGen();
   static const $AssetsImagesGen images = $AssetsImagesGen();
   static const $AssetsTranslationsGen translations = $AssetsTranslationsGen();
 }

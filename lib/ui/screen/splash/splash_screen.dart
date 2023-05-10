@@ -8,7 +8,6 @@ import '../../../data/cache_manager.dart';
 import '../../../data/firebase/firebase_manager.dart';
 import '../../../data/model/user_local/user_model_local.dart';
 import '../../router/router.gr.dart';
-import '../sign_up/sign_up_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -29,31 +28,14 @@ class _SplashScreenState extends State<SplashScreen> {
     await _remoteConfig.ensureInitialized();
     await _remoteConfig.activate();
     await _remoteConfig.fetchAndActivate().then((value) {
-      checkFirtLoad(showSignUp: _remoteConfig.getBool('show_sign_up'));
+      // checkFirtLoad(showSignUp: _remoteConfig.getBool('show_sign_up'));
     });
   }
 
   @override
   initState() {
-    //init();
-    initTheme();
     context.router.pushAll([const MainPage()]);
     super.initState();
-  }
-
-  void checkFirtLoad({required bool showSignUp}) async {
-    UserLocal? userLocal = await _cacheManager.getUserCached();
-    if (userLocal != null) showSignUp = false;
-    await Future.delayed(const Duration(seconds: 1));
-    context.router.pushAll([showSignUp ? const SignUp() : const MainPage()]);
-  }
-
-  void initTheme() async {
-    // if (await _cacheManager.getCurrnetTopicCached() == null) {
-    //   // List<TopicLocal> listData = [
-    //   //   TopicLocal(backgroundColor: Color(value), textColor: textColor, buttonColor: buttonColor, buttonTextColor: buttonTextColor)
-    //   // ];
-    // }
   }
 
   @override

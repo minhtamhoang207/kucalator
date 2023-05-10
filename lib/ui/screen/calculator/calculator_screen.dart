@@ -47,7 +47,7 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
     }
   }
 
-   List<String> fx = [
+  List<String> fx = [
     '(',
     ')',
     '\u221A', //sqrt
@@ -143,9 +143,7 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
           height: 66,
           width: 66,
           decoration: BoxDecoration(
-              color: displayValue == '='
-                  ? const Color(0xFFFBC531)
-                  : const Color(0xffFF6B6B),
+              color: displayValue == '=' ? secondaryColor : primaryColor,
               borderRadius:
                   displayValue == '=' ? null : BorderRadius.circular(20),
               shape:
@@ -336,7 +334,12 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Image.asset(Assets.images.icFx.path, height: 22, width: 18, color: const Color(0xFFFF6B6B),),
+                    Image.asset(
+                      Assets.images.icFx.path,
+                      height: 22,
+                      width: 18,
+                      color: const Color(0xFFFF6B6B),
+                    ),
                     const SizedBox(height: 10),
                     Flexible(
                       child: GridView.builder(

@@ -4,7 +4,7 @@ import 'package:auto_route/annotations.dart';
 import '../screen/calculator/calculator_screen.dart';
 import '../screen/choose_theme/choose_theme_screen.dart';
 import '../screen/main/main_screen.dart';
-import '../screen/sign_up/sign_up_screen.dart';
+
 import '../screen/splash/splash_screen.dart';
 import 'app_router.dart';
 
@@ -17,7 +17,6 @@ import 'app_router.dart';
         path: AppRoutes.splashScreen,
         initial: true),
     AutoRoute(page: MainScreen, name: "MainPage", path: AppRoutes.main),
-    AutoRoute(page: SignUpScreen, name: "SignUp", path: AppRoutes.signup),
     AutoRoute(
         page: CalculatorScreen, name: "Calculator", path: AppRoutes.calculator),
     AutoRoute(

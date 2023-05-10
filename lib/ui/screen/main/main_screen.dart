@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -29,7 +30,8 @@ class _MainScreenState extends State<MainScreen> {
   String loginUrl = '';
   String signUpUrl = '';
   String supportUrl = '';
-
+  String linkImage = "";
+  String linkImagePopup = "";
   final List<Widget> _widgetOptions = <Widget>[
     const CalculatorScreen(),
     const ChangeMoneyScreen(),
@@ -76,9 +78,11 @@ class _MainScreenState extends State<MainScreen> {
       loginUrl = _remoteConfig.getString('login_url');
       signUpUrl = _remoteConfig.getString('signup_url');
       supportUrl = _remoteConfig.getString('support_url');
+      linkImage = _remoteConfig.getString("link_image");
+      linkImagePopup = _remoteConfig.getString("popup_image_url");
     });
     StatusClick? status = await _cacheManager.getStatusClickCached();
-    if (showPopup == true && status == null) {
+    if (showPopup == true && linkImage != "") {
       _showMaterialDialog();
     }
   }
@@ -88,139 +92,68 @@ class _MainScreenState extends State<MainScreen> {
       context: context,
       builder: (BuildContext context) {
         return Dialog(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10.0),
-            side: const BorderSide(
-              color: Colors.grey,
-              width: 1.0,
-            ),
-          ),
+          backgroundColor: Colors.transparent.withOpacity(0),
           child: Container(
-            height: 280.h,
-            child: Column(
+            width: 400.h,
+            height: 300.h,
+            decoration: BoxDecoration(color: Colors.transparent.withOpacity(0)),
+            child: Stack(
               children: [
-                Container(
-                  padding: const EdgeInsets.all(12),
-                  alignment: Alignment.centerRight,
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 13),
                   child: GestureDetector(
-                    onTap: () {
+                    onTap: () async {
+                      final url = linkImagePopup;
+                      if (await canLaunchUrl(Uri.parse(url))) {
+                        await launchUrl(Uri.parse(url));
+                      } else {
+                        throw 'Could not launch $url';
+                      }
                       Navigator.pop(context);
                     },
-                    child: const Icon(
-                      Icons.close_rounded,
-                      size: 32,
+                    child: CachedNetworkImage(
+                      imageUrl: linkImage,
+                      imageBuilder: (context, imageProvider) => Container(
+                        alignment: Alignment.topCenter,
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                              image: imageProvider,
+                              fit: BoxFit.contain,
+                              colorFilter: ColorFilter.mode(
+                                  Colors.white, BlendMode.colorBurn)),
+                        ),
+                      ),
+                      placeholder: (context, url) =>
+                          CircularProgressIndicator(),
+                      errorWidget: (context, url, error) => Icon(Icons.error),
                     ),
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 12),
-                  child: Column(
-                    children: [
-                      GestureDetector(
-                        onTap: () async {
-                          final url = loginUrl;
-                          _cacheManager.addStatusClickToCached(
-                              StatusClick(statusClick: true));
-                          if (await canLaunchUrl(Uri.parse(url))) {
-                            await launchUrl(Uri.parse(url));
-                          } else {
-                            throw 'Could not launch $url';
-                          }
-                          Navigator.pop(context);
-                        },
-                        child: Container(
-                          margin: EdgeInsets.only(
-                              top: 10.h, left: 12.h, right: 12.h),
-                          padding: EdgeInsets.symmetric(vertical: 15.h),
-                          decoration: BoxDecoration(
-                              color: const Color(0xFFFF8686),
-                              borderRadius: BorderRadius.circular(16)),
-                          child: const Center(
-                            child: Text(
-                              "Đăng nhập",
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 17),
-                            ),
-                          ),
+                Align(
+                    alignment: Alignment.topRight,
+                    child: GestureDetector(
+                      onTap: () {
+                        Navigator.pop(context);
+                      },
+                      child: Container(
+                        width: 28.w,
+                        height: 28.w,
+                        decoration: BoxDecoration(
+                            shape: BoxShape.circle, color: Colors.grey[100]),
+                        alignment: Alignment.center,
+                        child: const Icon(
+                          Icons.close,
+                          color: Colors.grey,
+                          size: 20,
                         ),
                       ),
-                      GestureDetector(
-                        onTap: () async {
-                          _cacheManager.addStatusClickToCached(
-                              StatusClick(statusClick: true));
-                          final url = signUpUrl;
-                          if (await canLaunchUrl(Uri.parse(url))) {
-                            await launchUrl(Uri.parse(url));
-                          } else {
-                            throw 'Could not launch $url';
-                          }
-                          Navigator.pop(context);
-                        },
-                        child: Container(
-                          margin: EdgeInsets.only(
-                              top: 16.h, left: 12.h, right: 12.h),
-                          padding: EdgeInsets.symmetric(vertical: 15.h),
-                          decoration: BoxDecoration(
-                              color: const Color(0xFFFF8686),
-                              borderRadius: BorderRadius.circular(16)),
-                          child: const Center(
-                            child: Text(
-                              'Đăng ký',
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 17),
-                            ),
-                          ),
-                        ),
-                      ),
-                      GestureDetector(
-                        onTap: () async {
-                          _cacheManager.addStatusClickToCached(
-                              StatusClick(statusClick: true));
-                          final url = supportUrl;
-                          if (await canLaunchUrl(Uri.parse(url))) {
-                            await launchUrl(Uri.parse(url));
-                          } else {
-                            throw 'Could not launch $url';
-                          }
-                          Navigator.pop(context);
-                        },
-                        child: Container(
-                          margin: EdgeInsets.only(
-                              top: 16.h, left: 12.h, right: 12.h),
-                          padding: EdgeInsets.symmetric(vertical: 15.h),
-                          decoration: BoxDecoration(
-                              color: const Color(0xFFFF8686),
-                              borderRadius: BorderRadius.circular(16)),
-                          child: const Center(
-                            child: Text(
-                              'Trợ giúp',
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 17),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                SizedBox(
-                  height: 24.h,
-                )
+                    ))
               ],
             ),
           ),
         );
       },
     );
-    // showDialog(
-    //     context: context,
-    //     builder: (context) {
-    //       return AlertDialog(
-    //         title: ,
-    //         //content: Text('Hey! I am Coflutter!'),
-    //         actions: <Widget>[],
-    //       );
-    //     });
   }
 
   @override
@@ -255,7 +188,7 @@ class _MainScreenState extends State<MainScreen> {
                 height: 112.h,
                 child: DrawerHeader(
                     decoration: const BoxDecoration(
-                        color: Color(0xFFFF6B6B),
+                        color: primaryColor,
                         borderRadius: BorderRadius.only(
                             bottomRight: Radius.circular(20))),
                     child: Row(
@@ -280,7 +213,7 @@ class _MainScreenState extends State<MainScreen> {
                     )),
               ),
               Column(
-                children: List.generate(showPopup == true ? 4 : 3, (index) {
+                children: List.generate(3, (index) {
                   return ListTile(
                     leading: Image.asset(
                       _icon[index],

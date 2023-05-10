@@ -136,6 +136,7 @@ class _ChangeMoneyScreenState extends State<ChangeMoneyScreen> {
                           SvgPicture.asset(
                             "assets/images/icons/vector.svg",
                             width: 12.w,
+                            color: primaryColor,
                           ),
                           SvgPicture.asset(
                             "assets/images/icons/vector1.svg",
@@ -284,7 +285,7 @@ class _ChangeMoneyScreenState extends State<ChangeMoneyScreen> {
                                   });
                                 },
                                 context: context,
-                                col: Color(0xffFF6B6B),
+                                col: primaryColor,
                                 icon: Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
@@ -359,7 +360,7 @@ class _ChangeMoneyScreenState extends State<ChangeMoneyScreen> {
                                   deleteText(isAll: true);
                                 },
                                 context: context,
-                                col: Color(0xffFF6B6B),
+                                col: primaryColor,
                                 icon: Text(
                                   "C",
                                   style: TextStyle(
@@ -411,7 +412,7 @@ class _ChangeMoneyScreenState extends State<ChangeMoneyScreen> {
                             ),
                             button(
                                 context: context,
-                                col: Color(0xffFF6B6B),
+                                col: primaryColor,
                                 icon: Text(
                                   "=",
                                   style: TextStyle(

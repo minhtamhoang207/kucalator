@@ -4,7 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../services/ThemePreferences.dart';
 
 //color
-const primaryColor = Color(0xFFFF8686);
+const primaryColor = Color(0xFF1DD1A1);
 final primaryColor20 = primaryColor.withOpacity(0.2);
 final primaryColor5 = primaryColor.withOpacity(0.05);
 const backgroundItemColor = Color(0xffEDEFF4);
@@ -32,7 +32,7 @@ Color get buttonColor {
 // const backgroundColor = Color(0xfff3f3f3);
 const backgroundColorSecond = Color(0xff22252D);
 // const backgroundColorSecond = Color(0xff1C2433);
-const secondaryColor = Color(0xffEDEFF4);
+const secondaryColor = Color(0xff56CCF2); //56CCF2
 final secondaryColor75 = secondaryColor.withOpacity(0.75);
 final secondaryColor60 = secondaryColor.withOpacity(0.6);
 final secondaryColor45 = secondaryColor.withOpacity(0.45);
