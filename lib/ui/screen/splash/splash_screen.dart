@@ -1,8 +1,12 @@
+import 'dart:async';
+
 import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:kucalator/ui/theme/constant.dart';
 
 import '../../../data/cache_manager.dart';
 import '../../../data/firebase/firebase_manager.dart';
@@ -34,8 +38,14 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   initState() {
-    context.router.pushAll([const MainPage()]);
     super.initState();
+    pushPage();
+  }
+
+  pushPage() async {
+    Timer(Duration(milliseconds: 500), () {
+      context.router.pushAll([const MainPage()]);
+    });
   }
 
   @override
