@@ -13,9 +13,7 @@ void main() async {
   await Firebase.initializeApp();
   await ThemePreferences.init();
   await EasyLocalization.ensureInitialized();
-  //final langugage = await AccountServices().getAccountLanguage();
   await CacheManager.instance.init();
-  //await dotenv.load(fileName: ".env");
   await SpUtil.getInstance();
   runApp(EasyLocalization(
       path: "assets/translations",
