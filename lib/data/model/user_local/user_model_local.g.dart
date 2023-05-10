@@ -17,22 +17,16 @@ class UserLocalAdapter extends TypeAdapter<UserLocal> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return UserLocal(
-      name: fields[0] as String,
-      phone: fields[1] as String,
-      pass: fields[2] as String,
+      image: fields[0] as Uint8List,
     );
   }
 
   @override
   void write(BinaryWriter writer, UserLocal obj) {
     writer
-      ..writeByte(3)
-      ..writeByte(0)
-      ..write(obj.name)
       ..writeByte(1)
-      ..write(obj.phone)
-      ..writeByte(2)
-      ..write(obj.pass);
+      ..writeByte(0)
+      ..write(obj.image);
   }
 
   @override

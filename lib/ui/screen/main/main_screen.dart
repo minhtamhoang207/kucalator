@@ -2,9 +2,14 @@ import 'package:auto_route/auto_route.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:kucalator/ui/screen/main/cubit/main_cubit.dart';
+import 'package:kucalator/ui/screen/main/cubit/main_state.dart';
+import 'package:kucalator/ui/screen/main/media_button_widget.dart';
 import 'package:url_launcher/url_launcher.dart';
-
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import '../../../data/cache_manager.dart';
 import '../../../data/model/status_click/status_click.dart';
 import '../../../icons/assets.gen.dart';
@@ -158,93 +163,184 @@ class _MainScreenState extends State<MainScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        backgroundColor: backgroundColor,
-        appBar: AppBar(
-          backgroundColor: appBarColor,
-          // backgroundColor: backgroundColor,
-          iconTheme: IconThemeData(color: textAppBarColor),
-          title: Text(
-            _title[_selectedIndex],
-            style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.w500,
-                color: textAppBarColor),
-          ),
-          centerTitle: false,
-          elevation: 0,
-          shape: const RoundedRectangleBorder(
-              borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(20),
-                  bottomRight: Radius.circular(20))),
-        ),
-        // backgroundColor: backgroundColor,
-        drawer: Drawer(
-          backgroundColor: backgroundColor,
-          child: ListView(
-            padding: EdgeInsets.zero,
-            children: <Widget>[
-              SizedBox(
-                height: 112.h,
-                child: DrawerHeader(
-                    decoration: const BoxDecoration(
-                        color: primaryColor,
-                        borderRadius: BorderRadius.only(
-                            bottomRight: Radius.circular(20))),
-                    child: Row(
-                      children: [
-                        const CircleAvatar(
-                          backgroundColor: Colors.white,
-                          child: Icon(Icons.person, color: Colors.grey),
-                        ),
-                        SizedBox(width: 16.w),
-                        const Flexible(
-                          child: Text(
-                            'Xin chào',
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                            style: TextStyle(
-                                fontWeight: FontWeight.w500,
-                                fontSize: 16,
-                                color: Colors.white),
-                          ),
-                        )
-                      ],
-                    )),
+    return BlocProvider(
+      create: (context) => MainCubit()..init(),
+      child: BlocConsumer<MainCubit, MainState>(
+        listener: (context, state) {
+          // TODO: implement listener
+        },
+        builder: (context, state) {
+          return Scaffold(
+              backgroundColor: backgroundColor,
+              appBar: AppBar(
+                backgroundColor: appBarColor,
+                // backgroundColor: backgroundColor,
+                iconTheme: IconThemeData(color: textAppBarColor),
+                title: Text(
+                  _title[_selectedIndex],
+                  style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w500,
+                      color: textAppBarColor),
+                ),
+                centerTitle: false,
+                elevation: 0,
+                shape: const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.only(
+                        bottomLeft: Radius.circular(20),
+                        bottomRight: Radius.circular(20))),
               ),
-              Column(
-                children: List.generate(3, (index) {
-                  return ListTile(
-                    leading: Image.asset(
-                      _icon[index],
-                      height: 24,
-                      width: 24,
+              // backgroundColor: backgroundColor,
+              drawer: Drawer(
+                backgroundColor: backgroundColor,
+                child: ListView(
+                  padding: EdgeInsets.zero,
+                  children: <Widget>[
+                    SizedBox(
+                      height: 112.h,
+                      child: DrawerHeader(
+                          decoration: const BoxDecoration(
+                              color: primaryColor,
+                              borderRadius: BorderRadius.only(
+                                  bottomRight: Radius.circular(20))),
+                          child: Row(
+                            children: [
+                              GestureDetector(
+                                onTap: () {
+                                  _showPickerModalPopup(context);
+                                },
+                                child: state.userLocal != null
+                                    ? CircleAvatar(
+                                        backgroundColor: Colors.white,
+                                        child: ClipOval(
+                                          clipBehavior: Clip.antiAlias,
+                                          child: Container(
+                                            width: 40,
+                                            height: 40,
+                                            child: Image.memory(
+                                              state.userLocal!.image,
+                                              fit: BoxFit.cover,
+                                            ),
+                                          ),
+                                        ),
+                                      )
+                                    // Container(
+                                    //     width: 40.w,
+                                    //     height: 40.w,
+                                    //     decoration: BoxDecoration(
+                                    //         // shape: BoxShape.circle,
+                                    //         image: DecorationImage(image: AssetImage) ,
+                                    //         borderRadius:
+                                    //             BorderRadius.circular(50)),
+                                    //     child: Image.memory(
+                                    //       state.userLocal!.image,
+                                    //       fit: BoxFit.fill,
+                                    //     ),
+                                    //   )
+                                    : const CircleAvatar(
+                                        backgroundColor: Colors.white,
+                                        child: Icon(Icons.person,
+                                            color: Colors.grey),
+                                      ),
+                              ),
+                              SizedBox(width: 16.w),
+                              const Flexible(
+                                child: Text(
+                                  'Xin chào',
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 16,
+                                      color: Colors.white),
+                                ),
+                              )
+                            ],
+                          )),
                     ),
-                    title: Text(
-                      _title[index],
-                      style: index != _selectedIndex
-                          ? titleStyle.copyWith(
-                              height: 0, fontSize: 14.sp, color: textColor)
-                          : titleStyle.copyWith(
-                              height: 0, fontSize: 14.sp, color: primaryColor),
-                    ),
-                    selected: _selectedIndex == index,
-                    onTap: () async {
-                      if (index == 3) {
-                        ///TODO: implement logout
-                        await _cacheManager.deleteUserToCached();
-                        _cacheManager.addStatusClickToCached(null);
-                        context.router.push(const SplashPage());
-                      } else {
-                        _onItemTapped(index);
-                      }
-                    },
-                  );
-                }),
-              )
+                    Column(
+                      children: List.generate(3, (index) {
+                        return ListTile(
+                          leading: Image.asset(
+                            _icon[index],
+                            height: 24,
+                            width: 24,
+                          ),
+                          title: Text(
+                            _title[index],
+                            style: index != _selectedIndex
+                                ? titleStyle.copyWith(
+                                    height: 0,
+                                    fontSize: 14.sp,
+                                    color: textColor)
+                                : titleStyle.copyWith(
+                                    height: 0,
+                                    fontSize: 14.sp,
+                                    color: primaryColor),
+                          ),
+                          selected: _selectedIndex == index,
+                          onTap: () async {
+                            if (index == 3) {
+                              ///TODO: implement logout
+                              await _cacheManager.deleteUserToCached();
+                              _cacheManager.addStatusClickToCached(null);
+                              context.router.push(const SplashPage());
+                            } else {
+                              _onItemTapped(index);
+                            }
+                          },
+                        );
+                      }),
+                    )
+                  ],
+                ),
+              ),
+              body: _widgetOptions.elementAt(_selectedIndex));
+        },
+      ),
+    );
+  }
+
+  Future<void> _showPickerModalPopup(BuildContext context) {
+    return showBarModalBottomSheet(
+      context: context,
+      //expand: true,
+      builder: (BuildContext context1) {
+        return Container(
+          margin: EdgeInsets.symmetric(vertical: 8.h),
+          height: 100.h,
+          color: Colors.white,
+          child: Row(
+            children: [
+              SizedBox(
+                width: kDefaultPaddingWidthScreen,
+              ),
+              MediaButtonWidget(
+                  icon: Icons.photo,
+                  title: 'Thêm hình ảnh',
+                  onTap: () {
+                    context
+                        .read<MainCubit>()
+                        .handlePickImage(ImageSource.gallery);
+                    Navigator.pop(context);
+                  }),
+              SizedBox(
+                width: kDefaultPaddingWidthScreen,
+              ),
+              MediaButtonWidget(
+                  icon: Icons.camera_alt_rounded,
+                  title: 'Chụp ảnh',
+                  onTap: () {
+                    context.read<MainCubit>().getFromCamera();
+                    Navigator.pop(context);
+                  }),
+              SizedBox(
+                width: kDefaultPaddingWidthScreen,
+              ),
             ],
           ),
-        ),
-        body: _widgetOptions.elementAt(_selectedIndex));
+        );
+      },
+    );
   }
 }

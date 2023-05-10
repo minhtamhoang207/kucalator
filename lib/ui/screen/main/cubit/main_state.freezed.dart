@@ -18,6 +18,7 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$MainState {
   bool get isLoading => throw _privateConstructorUsedError;
   String? get error => throw _privateConstructorUsedError;
+  UserLocal? get userLocal => throw _privateConstructorUsedError;
   TopicLocal? get topic => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -30,7 +31,8 @@ abstract class $MainStateCopyWith<$Res> {
   factory $MainStateCopyWith(MainState value, $Res Function(MainState) then) =
       _$MainStateCopyWithImpl<$Res, MainState>;
   @useResult
-  $Res call({bool isLoading, String? error, TopicLocal? topic});
+  $Res call(
+      {bool isLoading, String? error, UserLocal? userLocal, TopicLocal? topic});
 }
 
 /// @nodoc
@@ -48,6 +50,7 @@ class _$MainStateCopyWithImpl<$Res, $Val extends MainState>
   $Res call({
     Object? isLoading = null,
     Object? error = freezed,
+    Object? userLocal = freezed,
     Object? topic = freezed,
   }) {
     return _then(_value.copyWith(
@@ -59,6 +62,10 @@ class _$MainStateCopyWithImpl<$Res, $Val extends MainState>
           ? _value.error
           : error // ignore: cast_nullable_to_non_nullable
               as String?,
+      userLocal: freezed == userLocal
+          ? _value.userLocal
+          : userLocal // ignore: cast_nullable_to_non_nullable
+              as UserLocal?,
       topic: freezed == topic
           ? _value.topic
           : topic // ignore: cast_nullable_to_non_nullable
@@ -74,7 +81,8 @@ abstract class _$$_MainStateCopyWith<$Res> implements $MainStateCopyWith<$Res> {
       __$$_MainStateCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({bool isLoading, String? error, TopicLocal? topic});
+  $Res call(
+      {bool isLoading, String? error, UserLocal? userLocal, TopicLocal? topic});
 }
 
 /// @nodoc
@@ -90,6 +98,7 @@ class __$$_MainStateCopyWithImpl<$Res>
   $Res call({
     Object? isLoading = null,
     Object? error = freezed,
+    Object? userLocal = freezed,
     Object? topic = freezed,
   }) {
     return _then(_$_MainState(
@@ -101,6 +110,10 @@ class __$$_MainStateCopyWithImpl<$Res>
           ? _value.error
           : error // ignore: cast_nullable_to_non_nullable
               as String?,
+      userLocal: freezed == userLocal
+          ? _value.userLocal
+          : userLocal // ignore: cast_nullable_to_non_nullable
+              as UserLocal?,
       topic: freezed == topic
           ? _value.topic
           : topic // ignore: cast_nullable_to_non_nullable
@@ -112,18 +125,21 @@ class __$$_MainStateCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_MainState implements _MainState {
-  const _$_MainState({required this.isLoading, this.error, this.topic});
+  const _$_MainState(
+      {required this.isLoading, this.error, this.userLocal, this.topic});
 
   @override
   final bool isLoading;
   @override
   final String? error;
   @override
+  final UserLocal? userLocal;
+  @override
   final TopicLocal? topic;
 
   @override
   String toString() {
-    return 'MainState(isLoading: $isLoading, error: $error, topic: $topic)';
+    return 'MainState(isLoading: $isLoading, error: $error, userLocal: $userLocal, topic: $topic)';
   }
 
   @override
@@ -134,11 +150,14 @@ class _$_MainState implements _MainState {
             (identical(other.isLoading, isLoading) ||
                 other.isLoading == isLoading) &&
             (identical(other.error, error) || other.error == error) &&
+            (identical(other.userLocal, userLocal) ||
+                other.userLocal == userLocal) &&
             (identical(other.topic, topic) || other.topic == topic));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, isLoading, error, topic);
+  int get hashCode =>
+      Object.hash(runtimeType, isLoading, error, userLocal, topic);
 
   @JsonKey(ignore: true)
   @override
@@ -151,12 +170,15 @@ abstract class _MainState implements MainState {
   const factory _MainState(
       {required final bool isLoading,
       final String? error,
+      final UserLocal? userLocal,
       final TopicLocal? topic}) = _$_MainState;
 
   @override
   bool get isLoading;
   @override
   String? get error;
+  @override
+  UserLocal? get userLocal;
   @override
   TopicLocal? get topic;
   @override

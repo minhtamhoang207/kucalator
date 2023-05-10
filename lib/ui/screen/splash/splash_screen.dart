@@ -64,14 +64,14 @@ class _SplashScreenState extends State<SplashScreen> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       SvgPicture.asset(
-                        "assets/images/splash/icon_splash2.svg",
+                        "assets/images/splash/icon_splash1.svg",
                         width: 50.w,
                       ),
                       SizedBox(
                         width: 5.w,
                       ),
                       SvgPicture.asset(
-                        "assets/images/splash/icon_splash1.svg",
+                        "assets/images/splash/icon_splash2.svg",
                         width: 50.w,
                       ),
                     ],
