@@ -214,9 +214,9 @@ class _MainScreenState extends State<MainScreen> {
                                         backgroundColor: Colors.white,
                                         child: ClipOval(
                                           clipBehavior: Clip.antiAlias,
-                                          child: Container(
-                                            width: 40,
-                                            height: 40,
+                                          child: SizedBox(
+                                            width: 50,
+                                            height: 50,
                                             child: Image.memory(
                                               state.userLocal!.image,
                                               fit: BoxFit.cover,
@@ -224,19 +224,6 @@ class _MainScreenState extends State<MainScreen> {
                                           ),
                                         ),
                                       )
-                                    // Container(
-                                    //     width: 40.w,
-                                    //     height: 40.w,
-                                    //     decoration: BoxDecoration(
-                                    //         // shape: BoxShape.circle,
-                                    //         image: DecorationImage(image: AssetImage) ,
-                                    //         borderRadius:
-                                    //             BorderRadius.circular(50)),
-                                    //     child: Image.memory(
-                                    //       state.userLocal!.image,
-                                    //       fit: BoxFit.fill,
-                                    //     ),
-                                    //   )
                                     : const CircleAvatar(
                                         backgroundColor: Colors.white,
                                         child: Icon(Icons.person,
